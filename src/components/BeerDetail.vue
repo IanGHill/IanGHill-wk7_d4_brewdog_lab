@@ -1,7 +1,8 @@
 <template>
   <div v-if="beerToDisplay">
     <h3>Beer Details</h3>
-    <button v-on:click="addToFavourites()">Add to Favourites</button>
+    <button v-if="!favouritesCheck()" v-on:click="addToFavourites()">Add to Favourites</button>
+    <button v-if="favouritesCheck()" v-on:click="removeFromFavourites()">Remove from Favourites</button>
 
     <p>{{beerToDisplay.name}}</p>
     <p>{{beerToDisplay.tagline}}</p>
@@ -25,6 +26,10 @@ export default {
       },
       addToFavourites: function () {
         this.beerFavouritesList.push(this.beerToDisplay);
+      },
+      removeFromFavourites: function () {
+        const index = this.beerFavouritesList.indexOf(this.beerToDisplay);
+        this.beerFavouritesList.splice(index, 1);
       }
     }
 }
